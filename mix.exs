@@ -22,6 +22,7 @@ defmodule Scanner.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:benchee, "~> 0.11", only: :dev},
       {:mix_test_watch, "~> 0.6", only: :dev, runtime: false}
     ]
   end
