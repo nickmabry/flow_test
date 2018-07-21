@@ -32,12 +32,14 @@ defmodule Scanner.StreamScannerTest do
   end
 
   describe "filter_lines/1" do
-    test "drops lines until \"CHAPTER 1. Loomings\"" do
+    test "drops lines until \"CHAPTER 1. Loomings.\"" do
       lines = [
         "Beep\n",
+        "CHAPTER 1. Loomings.\n",
         "Boop\n",
+        "  sea.” —_Whale Song_.\n",
         "Hello\n",
-        "CHAPTER 1. Loomings\n",
+        "CHAPTER 1. Loomings.\n",
         "Yolo\n"
       ]
 
@@ -45,14 +47,15 @@ defmodule Scanner.StreamScannerTest do
                 |> StreamScanner.filter_lines()
                 |> Enum.to_list()
       assert results == [
-        "CHAPTER 1. Loomings\n",
+        "CHAPTER 1. Loomings.\n",
         "Yolo\n"
       ]
     end
 
     test "drops empty lines" do
       lines = [
-        "CHAPTER 1. Loomings\n",
+        "  sea.” —_Whale Song_.\n",
+        "CHAPTER 1. Loomings.\n",
         "Yolo\n",
         "\n",
         "Call me Ishmael.\n",
@@ -63,7 +66,7 @@ defmodule Scanner.StreamScannerTest do
                 |> StreamScanner.filter_lines()
                 |> Enum.to_list()
       assert results == [
-        "CHAPTER 1. Loomings\n",
+        "CHAPTER 1. Loomings.\n",
         "Yolo\n",
         "Call me Ishmael.\n"
       ]
@@ -71,7 +74,8 @@ defmodule Scanner.StreamScannerTest do
 
     test "takes lines until the end cap" do
       lines = [
-        "CHAPTER 1. Loomings\n",
+        "  sea.” —_Whale Song_.\n",
+        "CHAPTER 1. Loomings.\n",
         "Call me Ishmael.\n",
         "End of Project Gutenberg’s Moby Dick; or The Whale, by Herman Melville\n",
         "Yolo\n"
@@ -81,7 +85,7 @@ defmodule Scanner.StreamScannerTest do
                 |> StreamScanner.filter_lines()
                 |> Enum.to_list()
       assert results == [
-        "CHAPTER 1. Loomings\n",
+        "CHAPTER 1. Loomings.\n",
         "Call me Ishmael.\n"
       ]
     end
@@ -93,7 +97,8 @@ defmodule Scanner.StreamScannerTest do
         "Beep\n",
         "Boop\n",
         "Hello\n",
-        "CHAPTER 1. Loomings\n",
+        "  sea.” —_Whale Song_.\n",
+        "CHAPTER 1. Loomings.\n",
         "Call me Ishmael. :)\n",
         "End of Project Gutenberg’s Moby Dick; or The Whale, by Herman Melville\n",
         "Yolo\n"
@@ -118,7 +123,8 @@ defmodule Scanner.StreamScannerTest do
     test "returns the expected word counts" do
       lines = [
         "Boop\n",
-        "CHAPTER 1. Loomings\n",
+        "  sea.” —_Whale Song_.\n",
+        "CHAPTER 1. Loomings.\n",
         "Call me Ishmael. :)\n",
         "Hello\n",
         "me name Michael. Hello!\n",
@@ -128,17 +134,17 @@ defmodule Scanner.StreamScannerTest do
 
       result = StreamScanner.count_line_words(lines)
 
-      assert result == %{
-        "1" => 1,
-        "call" => 1,
-        "chapter" => 1,
-        "hello" => 2,
-        "ishmael" => 1,
-        "loomings" => 1,
-        "me" => 2,
-        "michael" => 1,
-        "name" => 1
-      }
+      assert result == [
+        {"1", 1},
+        {"call", 1},
+        {"chapter", 1},
+        {"hello", 2},
+        {"ishmael", 1},
+        {"loomings", 1},
+        {"me", 2},
+        {"michael", 1},
+        {"name", 1}
+      ]
     end
   end
 end

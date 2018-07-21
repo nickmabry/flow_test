@@ -3,7 +3,8 @@ defmodule Scanner.StreamScanner do
   Documentation for Scanner.
   """
 
-  @start_line "CHAPTER 1. Loomings\n"
+  @break_line "  sea.” —_Whale Song_.\n"
+  @start_line "CHAPTER 1. Loomings.\n"
   @end_line "End of Project Gutenberg’s Moby Dick; or The Whale, by Herman Melville\n"
 
   def run(path) do
@@ -19,9 +20,12 @@ defmodule Scanner.StreamScanner do
   end
 
   def count_words(lines) do
-    Enum.reduce(lines, %{}, fn word, acc ->
-      Map.update(acc, word, 1, & &1 + 1)
-    end)
+    lines
+    |> Enum.reduce(%{}, fn word, acc ->
+         Map.update(acc, word, 1, & &1 + 1)
+       end)
+    |> Enum.to_list()
+    |> Enum.sort()
   end
 
   def stream_words(lines) do
@@ -34,6 +38,7 @@ defmodule Scanner.StreamScanner do
 
   def filter_lines(lines) do
     lines
+    |> Stream.drop_while(&(&1 != @break_line))
     |> Stream.drop_while(&(&1 != @start_line))
     |> Stream.reject(&(&1 == "\n" || String.length(&1) == 0))
     |> Stream.take_while(&(&1 != @end_line))
