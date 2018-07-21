@@ -23,6 +23,8 @@ defmodule Scanner.MixProject do
   defp deps do
     [
       {:benchee, "~> 0.11", only: :dev},
+      {:benchee_html, "~> 0.5", only: :dev},
+      {:flow, "~> 0.14"},
       {:mix_test_watch, "~> 0.6", only: :dev, runtime: false}
     ]
   end

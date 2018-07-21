@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Benchee Report</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/benchee.css">
+    <link rel="stylesheet" type="text/css" href="assets/fontello/css/fontello.css">
+  
+</head>
+
+  <body>
+
+    <div class="header">
+  <h1>benchee report</h1>
+  
+
+  <span class="version-note">
+  <a href="javascript:toggleSystemDataInfo();" title="Click to toggle system info">System info</a>
+</span>
+
+</div>
+
+
+    <article id="system-info" class="benchee-systeminfo" >
+  <h3>System info</h3>
+  <ul class="benchee-systeminfo-list">
+    <li>Elixir: 1.6.6</li>
+    <li>Erlang: 21.0.1</li>
+    <li>Operating system: macOS</li>
+    <li>Available memory: 16 GB</li>
+    <li>CPU Information: Intel(R) Core(TM) i7-4960HQ CPU @ 2.60GHz</li>
+    <li>Number of Available Cores: 8</li>
+  </ul>
+</article>
+
+
+    <article>
+      <h2>
+        Comparison
+        <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#comparison">
+          <i
+          class="benchee-help-icon icon-question-circle-o"
+          title="Comparisons of the different benchmarking jobs.
+For Iterations per Second higher is better, the black whiskers denote standard deviation. otherwise it is runtime so lower is better.
+The Box Plot shows a distribution of run times with the median and outliers."
+          ></i>
+        </a>
+      </h2>
+      <section>
+        <h3>Data Table</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      <th>Iterations per Second</th>
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>median</th>
+      <th>minimum</th>
+      <th>maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      <tr>
+        
+          <td class="text-left"><a href="results_enumscanner.html">EnumScanner</a></td>
+        
+        <td>0.76</td>
+        <td>1321.32 ms</td>
+        <td>±1.87%</td>
+        <td>1318.08 ms</td>
+        <td>1289.08 ms</td>
+        <td>1370.83 ms</td>
+        <td>8</td>
+      </tr>
+    
+      <tr>
+        
+          <td class="text-left"><a href="results_flowscanner.html">FlowScanner</a></td>
+        
+        <td>3.18</td>
+        <td>314.84 ms</td>
+        <td>±6.60%</td>
+        <td>318.59 ms</td>
+        <td>276.37 ms</td>
+        <td>350.50 ms</td>
+        <td>32</td>
+      </tr>
+    
+      <tr>
+        
+          <td class="text-left"><a href="results_streamscanner.html">StreamScanner</a></td>
+        
+        <td>1.07</td>
+        <td>938.76 ms</td>
+        <td>±2.50%</td>
+        <td>929.23 ms</td>
+        <td>919.15 ms</td>
+        <td>996.91 ms</td>
+        <td>11</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+      </section>
+
+      <section class="benchee-plot-container">
+        <div id="ips-comparison" class="job-count-3 plot"></div>
+      </section>
+
+      <section class="benchee-plot-container">
+        <div id="box-plot" class="job-count-3 plot"></div>
+      </section>
+    </article>
+
+    <footer>
+      <a href="https://github.com/PragTob/benchee" target="blank">benchee version: 0.13.1 </a>
+<br/>
+<a href="https://github.com/PragTob/benchee_html" target="blank">benchee_html version: 0.5.0</a>
+
+
+    </footer>
+
+    
+  <script src="assets/javascripts/plotly-1.30.1.min.js"></script>
+  <script src="assets/javascripts/benchee.js"></script>
+
+
+
+    <script>
+      var suite      = {"run_times":{"EnumScanner":[1328806,1314471,1370832,1289075,1315955,1320208,1298699,1332502],"FlowScanner":[276365,283793,281554,288331,295273,315982,331892,314750,287122,287201,288740,290491,322793,305275,306534,314888,321506,323771,324417,321022,332873,340609,350496,343983,334279,342462,326183,316157,316034,331804,336148,322211],"StreamScanner":[996911,961668,935882,946456,920901,929228,919146,925033,920288,925412,945423]},"sort_order":["FlowScanner","StreamScanner","EnumScanner"],"statistics":{"EnumScanner":{"average":1321318.5,"ips":0.7568197978004546,"maximum":1370832,"median":1318081.5,"minimum":1289075,"mode":null,"percentiles":{"50":1318081.5,"99":1370832.0},"sample_size":8,"std_dev":24671.828011490587,"std_dev_ips":0.014131436051961656,"std_dev_ratio":0.0186721278870239},"FlowScanner":{"average":314841.84375,"ips":3.176197890627427,"maximum":350496,"median":318589.5,"minimum":276365,"mode":null,"percentiles":{"50":318589.5,"99":350496.0},"sample_size":32,"std_dev":20785.18149580388,"std_dev_ips":0.20968575471722226,"std_dev_ratio":0.06601784962328051},"StreamScanner":{"average":938758.9090909091,"ips":1.0652362287228747,"maximum":996911,"median":929228.0,"minimum":919146,"mode":null,"percentiles":{"50":929228.0,"99":996911.0},"sample_size":11,"std_dev":23495.847375459965,"std_dev_ips":0.026661401139852686,"std_dev_ratio":0.02502862784888323}}};
+      var runTimes   = suite.run_times;
+      var statistics = suite.statistics;
+      var sortOrder  = suite.sort_order;
+
+      var inputHeadline = ""
+
+      drawIpsComparisonChart(statistics, sortOrder, inputHeadline);
+      drawComparisonBoxPlot(runTimes, sortOrder, inputHeadline);
+    </script>
+  </body>
+</html>
